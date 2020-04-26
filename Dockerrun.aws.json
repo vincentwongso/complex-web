@@ -13,13 +13,7 @@
       "image": "vincentwong/multi-server",
       "hostname": "api",
       "essential": false,
-      "memory": 128,
-      "secrets": [
-        {
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:400399143602:secret:Postgres-4K0Ggy",
-          "name": "postgres_auth"
-        }
-      ]
+      "memory": 128
     },
     {
       "name": "worker",
