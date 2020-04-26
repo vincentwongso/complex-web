@@ -1,0 +1,41 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "vincentwong/multi-client",
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": "server",
+      "image": "vincentwong/multi-server",
+      "hostname": "api",
+      "essential": false,
+      "secrets": [
+        {
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:400399143602:secret:Postgres-4K0Ggy",
+          "name": "postgres_auth"
+        }
+      ]
+    },
+    {
+      "name": "worker",
+      "image": "vincentwong/multi-worker",
+      "hostname": "worker",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "vincentwong/multi-nginx",
+      "essential": "true",
+      "portMapping": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["client", "server"]
+    }
+  ]
+}
